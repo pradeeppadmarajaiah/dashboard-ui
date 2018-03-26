@@ -104,4 +104,15 @@ public class Company {
 		this.totalProfit = totalProfit;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Company [id=" + id + ", name=" + name + ", totalRevenue=" + totalRevenue + ", totalCommission="
+				+ totalCommission + ", totalProfit=" + totalProfit + "]";
+	}
+
 }

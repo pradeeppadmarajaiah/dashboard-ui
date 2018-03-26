@@ -9,19 +9,17 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class DashboardController {
 	@Autowired
 	DashboardService dashboardService;
 
 	@RequestMapping("/companies")
-	public String getCompanies(Model model) {
+	public List<Company> getCompanies() {
 
 		String txtFileName = "transactions.csv";
 		List<Grubhub> list = new ArrayList<>();
@@ -64,9 +62,32 @@ public class DashboardController {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-		
-		model.addAttribute("companies", companies) ; // key - value pair
-		return "companies";
+		return companies;
+	}
+
+	@RequestMapping("/rCompanies")
+	public List<Company> getRealCompanies() {
+
+		List<Company> companies = new ArrayList<>();
+		companies.add(new Company("E1", "EAT24", 100.00, 23.56, 76.44));
+		companies.add(new Company("Y1", "YELP", 857.00, 52.12, 804.88));
+		companies.add(new Company("U1", "Uber eat", 500.0, 19.5, 480.5));
+		companies.add(new Company("S1", "seamless", 1000.0, 120.0, 880.0));
+		companies.add(GrubHubLoginHelper.getCompany());
+		return companies;
+	}
+
+	@RequestMapping("/rCompanies/{id}")
+	public Company getRCompany(@PathVariable String id) {
+
+		List<Company> companies = new ArrayList<>();
+		companies.add(new Company("E1", "EAT24", 100.00, 23.56, 76.44));
+		companies.add(new Company("Y1", "YELP", 857.00, 52.12, 804.88));
+		companies.add(new Company("U1", "Uber eat", 500.0, 19.5, 480.5));
+		companies.add(new Company("S1", "seamless", 1000.0, 120.0, 880.0));
+		companies.add(GrubHubLoginHelper.getCompany());
+		return companies.stream().filter(t -> t.getId().equals(id)).findFirst().get();
+
 	}
 
 	@RequestMapping("/companies/{id}")
