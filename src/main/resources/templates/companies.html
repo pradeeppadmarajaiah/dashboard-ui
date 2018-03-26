@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+        <head></head>
+
+        <body>
+
+            <table border="1" cellpadding="20" cellspacing="0" id="bookstable">
+
+                <tr>
+
+                    <th>Company</th>
+                    <th>Total Revenue</th>
+                    <th>Total Commission</th>
+                    <th>Total Profit</th>
+
+                </tr>
+
+                <!-- in the view we have to extract the List<Book> object and run foreach on it -->
+
+               <tr th:each="company : ${companies}">
+
+                   <td th:text="${company.name}"></td>
+
+                   <td th:text="${company.totalRevenue}"></td>
+                   
+                   <td th:text="${company.totalCommission}"></td>
+                   
+                   <td th:text="${company.totalProfit}"></td>
+
+               </tr>
+
+            </table>
+
+            <img src="/busy.gif" style="width:80px;display:none" id="busy"/>
+
+            <button onclick="refresh()" id="refresh">Refresh</button>
+
+
+        </body>
+
+
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="/our.js"></script>
